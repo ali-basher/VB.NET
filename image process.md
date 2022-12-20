@@ -19,7 +19,65 @@ End Class
 
 ---
 
-## 2- Load Image and get information color RGB
+## 2- convert to binary and gray image
+
+---
+![load_img](img/convert%20binary%20gray.png)
+![load_img](img/after%20convert%20binary%20gray.png)
+
+``` vbnet
+Public Class Form1
+    Public load_img As New OpenFileDialog
+    Public x As Integer, y As Integer, i As Integer, j As Integer
+
+    Private Sub binary_gray_img_Click(sender As Object, e As EventArgs) Handles binary_gray_img.Click
+
+        Dim pixel As New Color
+        Dim img1 As New Bitmap(PictureBox1.Image)
+        Dim gray_img As New Bitmap(PictureBox1.Width, PictureBox1.Height)
+        Dim bin_img As New Bitmap(PictureBox1.Width, PictureBox1.Height)
+
+        For Me.i = 0 To x - 1
+            For Me.j = 0 To y - 1
+                pixel = img1.GetPixel(i, j)
+                r = pixel.R : g = pixel.G : b = pixel.B
+
+                p = (r + g + b) / 3
+
+                gray_img.SetPixel(i, j, Color.FromArgb(p, p, p))
+
+                If p < 128 Then
+                    bin_img.SetPixel(i, j, Color.FromArgb(0, 0, 0))
+                Else
+                    bin_img.SetPixel(i, j, Color.FromArgb(255, 255, 255))
+
+                End If
+            Next
+        Next
+
+        PictureBox2.Image = gray_img
+        PictureBox3.Image = bin_img
+    End Sub
+
+    Public r As Integer, g As Integer, b As Integer, p As Integer
+
+
+    Private Sub load_img1_Click(sender As Object, e As EventArgs) Handles load_img1.Click
+        If load_img.ShowDialog() = Windows.Forms.DialogResult.OK Then
+            PictureBox1.Load(load_img.FileName)
+
+        End If
+        x = PictureBox1.Width
+        y = PictureBox1.Height
+
+    End Sub
+End Class
+
+```
+
+---
+
+## 3- Load Image and get information color RGB
 
 ---
 ![load_img](img/Load%20Image%20and%20get%20information%20color%20RGB.png)
@@ -59,7 +117,7 @@ End Class
 
 ---
 
-## 3- Arithmetic and Logical Operations on Images
+## 4- Arithmetic and Logical Operations on Images
 
 ---
 ![load_img](img/Arithmetic%20and%20Logical%20Operations%20on%20Images.png)
@@ -318,7 +376,7 @@ End Class
 
 ---
 
-## 4- Histogram shrink stretch
+## 5- Histogram shrink stretch
 
 ---
 ![load_img](img/shrink%20stretch.png)
