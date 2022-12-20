@@ -513,3 +513,91 @@ End Class
 ```
 
 ---
+
+## 6- add and sub value on image
+
+---
+![load_img](img/add.png)
+
+``` vbnet
+Imports System.Windows.Forms.VisualStyles.VisualStyleElement
+
+Public Class Form1
+    Public load_img As New OpenFileDialog
+    Public x As Integer, y As Integer, i As Integer, j As Integer
+
+    Private Sub sub1_Click(sender As Object, e As EventArgs) Handles sub1.Click
+        Dim pixel As New Color
+        Dim img1 As New Bitmap(PictureBox1.Image)
+        Dim gray_img As New Bitmap(PictureBox1.Width, PictureBox1.Height)
+
+        For Me.i = 0 To x - 1
+            For Me.j = 0 To y - 1
+                pixel = img1.GetPixel(i, j)
+                r = pixel.R : g = pixel.G : b = pixel.B
+
+                r = r - Val(TextBox1.Text)
+                If r < 0 Then r = 0
+
+                g = g - Val(TextBox1.Text)
+                If g < 0 Then g = 0
+
+                b = b - Val(TextBox1.Text)
+                If b < 0 Then b = 0
+
+
+                gray_img.SetPixel(i, j, Color.FromArgb(r, g, b))
+
+
+            Next
+        Next
+
+        PictureBox3.Image = gray_img
+    End Sub
+
+    Private Sub add1_Click(sender As Object, e As EventArgs) Handles add1.Click
+        Dim pixel As New Color
+        Dim img1 As New Bitmap(PictureBox1.Image)
+        Dim gray_img As New Bitmap(PictureBox1.Width, PictureBox1.Height)
+
+        For Me.i = 0 To x - 1
+            For Me.j = 0 To y - 1
+                pixel = img1.GetPixel(i, j)
+                r = pixel.R : g = pixel.G : b = pixel.B
+
+                r = r + Val(TextBox1.Text)
+                If r > 255 Then r = 255
+
+                g = g + Val(TextBox1.Text)
+                If g > 255 Then g = 255
+
+                b = b + Val(TextBox1.Text)
+                If b > 255 Then b = 255
+
+
+                gray_img.SetPixel(i, j, Color.FromArgb(r, g, b))
+
+
+            Next
+        Next
+
+        PictureBox2.Image = gray_img
+    End Sub
+
+    Public r As Integer, g As Integer, b As Integer, p As Integer
+
+
+    Private Sub load_img1_Click(sender As Object, e As EventArgs) Handles load_img1.Click
+        If load_img.ShowDialog() = Windows.Forms.DialogResult.OK Then
+            PictureBox1.Load(load_img.FileName)
+
+        End If
+        x = PictureBox1.Width
+        y = PictureBox1.Height
+
+    End Sub
+End Class
+
+```
+
+---
