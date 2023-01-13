@@ -1,0 +1,19 @@
+def selection_sort(list_1):
+    list2 = list_1.copy()
+    list3 = []
+    l = len(list2)
+    while l != 0:
+        min1 = list2[0]
+        for i in range(l):
+            if list2[i] < min1:
+                min1 = list2[i]
+        list3.append(list2.pop(list2.index(min1)))
+
+        l -= 1
+
+    return list3
+
+
+list1 = [6, 7, 5, 10, 11, 9, 0, 1, -99, -3]
+print(selection_sort(list1))
+
